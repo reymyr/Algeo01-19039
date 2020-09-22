@@ -5,7 +5,7 @@ public class Matriks {
     int N;
     float[][] Mat;
 
-    // Membentuk matriks matriks augmented dari SPL dengan input m dan n
+    // Membentuk matriks augmented dari SPL dengan input m dan n
     public Matriks(int M, int N) { 
         int i, j;
         this.M = M;
@@ -26,6 +26,7 @@ public class Matriks {
         
     }
 
+    // Menuliskan matriks
     public void printMatriks() {
         int i, j;
         for (i = 0; i < M; i++) {
