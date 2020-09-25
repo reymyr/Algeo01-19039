@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Matriks {
     int M;
@@ -10,8 +11,8 @@ public class Matriks {
     public Matriks(int M, int N) { 
         int i, j;
         this.M = M;
-        this.N = N+1;
-        this.Mat = new float[M][N+1];
+        this.N = N;
+        this.Mat = new float[M][N];
         for(i = 0; i < M; i++) {
             for (j = 0; j < N; j++) {
                 this.Mat[i][j] = 0;
@@ -21,7 +22,35 @@ public class Matriks {
 
     // Membaca matriks dari sebuah file
     public Matriks(File f) {
-
+        try {
+            int i, j;
+            int row = 0, col = 0;
+            String rows = "";
+            Scanner rowScanner = new Scanner(f);
+            while (rowScanner.hasNextLine()) {
+                row++;
+                rows = rowScanner.nextLine();
+            }
+            Scanner colScanner = new Scanner(rows);
+            while (colScanner.hasNextFloat()) {
+                col++;
+                colScanner.nextFloat();
+            }
+            rowScanner.close();
+            colScanner.close();
+            this.M = row;
+            this.N = col;
+            this.Mat = new float[row][col];
+            Scanner in = new Scanner(f);
+            for(i = 0; i < row; i++) {
+                for (j = 0; j < col; j++) {
+                    this.Mat[i][j] = in.nextFloat();
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            e.printStackTrace();
+        }
     }
 
     // Membentuk matriks dari array 2 dimensi
