@@ -82,9 +82,49 @@ public class Matriks {
         }
     }
 
+    // cek apakah satu baris nol semua atau tidak
+    public boolean cekNol(int b){
+        boolean nol = true;
+        int col = 0;
+        while ((nol) && (col < this.N)){
+            if (Mat[b][col] != 0){
+                nol = false;
+            }
+            else{
+                col += 1;
+            }
+        }
+
+        return nol;
+    }
+
+    // cari leading coefficient
+    public int leadCoefficient(int b){
+        boolean lead = false;
+        int col = 0;
+        while ((col < this.N) && !lead){
+            if (Mat[b][col] != 0){
+                lead = true;
+            }
+            else{
+                col += 1;
+            }
+        }
+
+        if (lead){
+            return col;
+        }
+        else{
+            return this.N;
+        }
+    }
+
+    // gauss
     public void gauss() {
 
     }
+
+    // gauss jordan
     public void gaussJordan() {
 
     }
@@ -92,7 +132,30 @@ public class Matriks {
     // Menghitung determinan matriks dengan metode reduksi baris
     // Prekondisi: Matriks persegi
     public void detRowReduction() {
+        if (M == 0){
+            return 0;
+        }
+        else if (M == 1){
+            return Mat[0][0];
+        }
+        else { // Reduksi baris, membentuk matriks segitiga atas
+            int i,j,k;
+            float det = 1;
+            float x;
 
+            for (i = 0; i < M; i++) {
+                for (j = 0; j < N; j++){
+                    if (i < j){
+                        x = Mat[j][i] / Mat[i][i];
+                        for (k = 0; k < M; k++){
+                            Mat[j][k] = Mat[j][k] - (Mat[i][k] * x);
+                        }
+                    }
+                }
+                det = det * Mat[i][i];
+            }
+            return det;
+        }
     }
 
     // Menghitung determinan matriks dengan metode ekspansi kofaktor
