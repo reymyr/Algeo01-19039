@@ -71,6 +71,16 @@ public class Matriks {
         }
     }
 
+    public Matriks clone() {
+        Matriks MatClone = new Matriks(this.M, this.N);
+        for(int i = 0; i < this.M; i++) {
+            for (int j = 0; j < this.N; j++) {
+                MatClone.Mat[i][j] = this.Mat[i][j];
+            }
+        }
+        return MatClone;
+    }
+
     // Menuliskan matriks
     public void printMatriks() {
         int i, j;

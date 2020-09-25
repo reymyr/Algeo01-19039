@@ -40,6 +40,9 @@ public class DriverMatriks {
         }
         
         mat.printMatriks();
+
+        Cramer.solve(mat);
+        
         in.close();
     }
 }
