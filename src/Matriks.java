@@ -92,7 +92,30 @@ public class Matriks {
     // Menghitung determinan matriks dengan metode reduksi baris
     // Prekondisi: Matriks persegi
     public void detRowReduction() {
+        if (M == 0){
+            return 0;
+        }
+        else if (M == 1){
+            return Mat[0][0];
+        }
+        else { // Reduksi baris, membentuk matriks segitiga atas
+            int i,j,k;
+            float det = 1;
+            float x;
 
+            for (i = 0; i < M; i++) {
+                for (j = 0; j < N; j++){
+                    if (i < j){
+                        x = Mat[j][i] / Mat[i][i];
+                        for (k = 0; k < M; k++){
+                            Mat[j][k] = Mat[j][k] - (Mat[i][k] * x);
+                        }
+                    }
+                }
+                det = det * Mat[i][i];
+            }
+            return det;
+        }
     }
 
     // Menghitung determinan matriks dengan metode ekspansi kofaktor
