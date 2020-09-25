@@ -24,26 +24,26 @@ public class Matriks {
     public Matriks(File f) {
         try {
             int i, j;
-            int row = 0, col = 0;
-            String rows = "";
+            int rows = 0, cols = 0;
+            String row = "";
             Scanner rowScanner = new Scanner(f);
             while (rowScanner.hasNextLine()) {
-                row++;
-                rows = rowScanner.nextLine();
+                rows++;
+                row = rowScanner.nextLine();
             }
-            Scanner colScanner = new Scanner(rows);
+            Scanner colScanner = new Scanner(row);
             while (colScanner.hasNextFloat()) {
-                col++;
+                cols++;
                 colScanner.nextFloat();
             }
             rowScanner.close();
             colScanner.close();
-            this.M = row;
-            this.N = col;
-            this.Mat = new float[row][col];
+            this.M = rows;
+            this.N = cols;
+            this.Mat = new float[rows][cols];
             Scanner in = new Scanner(f);
-            for(i = 0; i < row; i++) {
-                for (j = 0; j < col; j++) {
+            for(i = 0; i < rows; i++) {
+                for (j = 0; j < cols; j++) {
                     this.Mat[i][j] = in.nextFloat();
                 }
             }
