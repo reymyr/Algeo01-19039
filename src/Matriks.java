@@ -82,50 +82,63 @@ public class Matriks {
         }
     }
 
-    // cek apakah satu baris nol semua atau tidak
-    public boolean cekNol(int b){
-        boolean nol = true;
-        int col = 0;
-        while ((nol) && (col < this.N)){
-            if (Mat[b][col] != 0){
-                nol = false;
-            }
-            else{
-                col += 1;
-            }
-        }
-
-        return nol;
-    }
-
-    // cari leading coefficient
-    public int leadCoefficient(int b){
-        boolean lead = false;
-        int col = 0;
-        while ((col < this.N) && !lead){
-            if (Mat[b][col] != 0){
-                lead = true;
-            }
-            else{
-                col += 1;
-            }
-        }
-
-        if (lead){
-            return col;
-        }
-        else{
-            return this.N;
-        }
-    }
-
-    // gauss
+    // gauss, matriks dijadikan eselon baris
     public void gauss() {
+        float tmp, coef, divOne;
+        int i = 1;
+        int j, k;
 
+        for (j = 1; (j < N) && (i <= M); j++){
+            boolean cont = true;
+            if (Mat[i][j] == 0){
+                boolean found = false;
+                k = i + 1;
+                while (!found && (k <= M)){
+                    if (Mat[k][j] != 0){
+                        found = true;
+                    }
+                    else{
+                        k += 1;
+                    }
+                }
+
+                if (found){
+                    // menukar elemen matriks 
+                    for (j = 1; j <= N; j++){
+                        tmp = Mat[i][j];
+                        Mat[i][j] = Mat[k][j];
+                        Mat[k][j] = tmp;
+                    }
+                }
+                else{
+                    cont = false;
+                }
+            }
+
+            if (cont){
+                // Membuat leading one
+                divOne = Mat[i][j]
+                for (j = 1; j <= N; j++){
+                    Mat[i][j] = Mat[i][j] / divOne;
+                }
+
+                // pengurangan matriks
+                for (k = i + 1; k <= M; k++){
+                    coef = Mat[k][j] / Mat[i][j];
+                    for (j = 1; j <= N; j++){
+                        Mat[k][j] -= coef * Mat[i][j];
+                    }
+                }
+
+                i += 1;
+            }
+        }
     }
 
-    // gauss jordan
+    // gauss-jordan, matriks dijadikan eselon baris tereduksi
     public void gaussJordan() {
+        int i, j;
+        float coef;
 
     }
 
@@ -139,22 +152,60 @@ public class Matriks {
             return Mat[0][0];
         }
         else { // Reduksi baris, membentuk matriks segitiga atas
-            int i,j,k;
+            int i,j,k,p;
             float det = 1;
             float x;
+            int jumlahSwap = 0;
+            int adaNol = 0;
+            int jumlahNol = 0;
+            int bar = 0;
+            int kol = 0;
 
-            for (i = 0; i < M; i++) {
-                for (j = 0; j < N; j++){
-                    if (i < j){
-                        x = Mat[j][i] / Mat[i][i];
-                        for (k = 0; k < M; k++){
-                            Mat[j][k] = Mat[j][k] - (Mat[i][k] * x);
-                        }
+            //cek apakah ada 0 di baris pertama
+            while (adaNol == 0 && kol < M) {
+                if (Mat[bar][kol] == 0) {
+                    adaNol = 1;
+                }
+                else{
+                    kol = kol + 1;
+                }
+            }
+            //jika ada 0, cek apakah kolom tersebut isinya 0 semua, jika ya (jumlahNol == M), maka det = 0
+            if(adaNol == 1){
+                for (bar = 0; bar < M; bar++){
+                    if(Mat[bar][kol] == 0){
+                        jumlahNol = jumlahNol + 1;
                     }
                 }
-                det = det * Mat[i][i];
             }
-            return det;
+            if(jumlahNol == M){
+                return 0;
+            }
+            //jika tidak ada kolom yang isinya 0 semua, lanjutkan dengan reduksi baris
+            else{
+                for (i = 0; i < M; i++) {
+                    for (j = 0; j < N; j++){
+                        if (i < j){
+                            if (Mat[i][i] == 0 && i != (M-1)){ 
+                                float temp;
+                                jumlahSwap = jumlahSwap + 1;
+                                for(p = 0; p < M; p++){
+                                    temp = Mat[i][p];
+                                    Mat[i][p] = Mat[M-1][p];
+                                    Mat[M-1][p] = temp;
+                                }
+                            }
+                            x = Mat[j][i] / Mat[i][i];
+                            for (k = 0; k < M; k++){
+                                Mat[j][k] = Mat[j][k] - (Mat[i][k] * x);
+                            }
+                        }
+                    }
+                    det = det * Mat[i][i];
+                }
+                det = det * (Math.pow(-1, jumlahSwap));
+                return det;
+            }
         }
     }
 
