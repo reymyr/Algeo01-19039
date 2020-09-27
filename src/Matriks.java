@@ -155,9 +155,14 @@ public class Matriks {
                                     jumlahSwap = jumlahSwap + 1;
                                 }
                             }
-                            x = Mat[j][i] / Mat[i][i];
-                            for (k = 0; k < M; k++){
-                                Mat[j][k] = Mat[j][k] - (Mat[i][k] * x);
+                            if (Mat[i][i] == 0){
+                                det = 0;
+                            }
+                            else{
+                                x = Mat[j][i] / Mat[i][i];
+                                for (k = 0; k < M; k++){
+                                    Mat[j][k] = Mat[j][k] - (Mat[i][k] * x);
+                                }
                             }
                         }
                     }
