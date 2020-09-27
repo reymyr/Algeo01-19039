@@ -41,8 +41,17 @@ public class DriverMatriks {
         
         mat.printMatriks();
 
+
         Cramer.solve(mat);
         
+
+        System.out.println("Cofactor");
+        System.out.println(mat.detCofactor());
+        System.out.println("RowReduction");
+        System.out.println(mat.detRowReduction());
+        System.out.println();
+        mat.printMatriks();
+
         in.close();
     }
 }
