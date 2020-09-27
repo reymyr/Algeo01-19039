@@ -136,11 +136,23 @@ public class Matriks {
                         if (i < j){
                             if (Mat[i][i] == 0 && i != (M-1)){ 
                                 float temp;
-                                jumlahSwap = jumlahSwap + 1;
+                                int q =  i;
+                                int getNol = 0;
+                                int barisSwap;
+                                while (q < M && getNol == 0) {
+                                    if (Mat[q][i] != 0) {
+                                        getNol = 1;
+                                        barisSwap = q;
+                                    }
+                                    else{
+                                        q = q + 1;
+                                    }
+                                }
                                 for(p = 0; p < M; p++){
                                     temp = Mat[i][p];
-                                    Mat[i][p] = Mat[M-1][p];
-                                    Mat[M-1][p] = temp;
+                                    Mat[i][p] = Mat[barisSwap][p];
+                                    Mat[barisSwap][p] = temp;
+                                    jumlahSwap = jumlahSwap + 1;
                                 }
                             }
                             x = Mat[j][i] / Mat[i][i];
