@@ -15,7 +15,7 @@ public class DriverMatriks {
             m = in.nextInt();
             System.out.print("n: ");
             n = in.nextInt();
-            float[][] A = new float[m][n+1];
+            double[][] A = new double[m][n+1];
             for(i = 0; i < m; i++) {
                 for (j = 0; j < n+1; j++) {
                     if (j != n) {
@@ -24,7 +24,7 @@ public class DriverMatriks {
                     else {
                         System.out.print("Konstanta b"+(i+1)+": ");
                     }
-                    A[i][j] = in.nextFloat();
+                    A[i][j] = in.nextDouble();
                 }
             }
             mat = new Matriks(A);

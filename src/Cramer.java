@@ -1,7 +1,7 @@
 public class Cramer {
     public static void solve(Matriks M) {
-        float[][] tempA = new float[M.M][M.N-1];
-        float[] b = new float[M.M];
+        double[][] tempA = new double[M.M][M.N-1];
+        double[] b = new double[M.M];
         int i, j;
         for (i = 0; i < tempA.length; i++) {
             for (j = 0; j < tempA[0].length; j++) {
@@ -12,14 +12,14 @@ public class Cramer {
         for (i = 0; i < b.length; i++) {
             b[i] = M.Mat[i][M.N-1];
         }
-        float detA = A.detCofactor();
+        double detA = A.detCofactor();
         if (detA != 0) {
             for (i = 0; i < M.M; i++) {
                 Matriks Ai = A.clone(); 
                 for (int k = 0; k < b.length; k++) {    
                     Ai.Mat[k][i] = b[k];
                 }
-                float detAi = Ai.detCofactor();
+                double detAi = Ai.detCofactor();
                 System.out.println("X" + (i+1) + " = " + detAi / detA);
             }
         }

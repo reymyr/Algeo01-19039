@@ -5,14 +5,14 @@ import java.io.FileNotFoundException;
 public class Matriks {
     int M;
     int N;
-    float[][] Mat;
+    double[][] Mat;
 
     // Membentuk matriks kosong berukuran MxN
     public Matriks(int M, int N) { 
         int i, j;
         this.M = M;
         this.N = N;
-        this.Mat = new float[M][N];
+        this.Mat = new double[M][N];
         for(i = 0; i < M; i++) {
             for (j = 0; j < N; j++) {
                 this.Mat[i][j] = 0;
@@ -32,19 +32,19 @@ public class Matriks {
                 row = rowScanner.nextLine();
             }
             Scanner colScanner = new Scanner(row);
-            while (colScanner.hasNextFloat()) {
+            while (colScanner.hasNextDouble()) {
                 cols++;
-                colScanner.nextFloat();
+                colScanner.nextDouble();
             }
             rowScanner.close();
             colScanner.close();
             this.M = rows;
             this.N = cols;
-            this.Mat = new float[rows][cols];
+            this.Mat = new double[rows][cols];
             Scanner in = new Scanner(f);
             for(i = 0; i < rows; i++) {
                 for (j = 0; j < cols; j++) {
-                    this.Mat[i][j] = in.nextFloat();
+                    this.Mat[i][j] = in.nextDouble();
                 }
             }
         } catch (FileNotFoundException e) {
@@ -54,7 +54,7 @@ public class Matriks {
     }
 
     // Membentuk matriks dari array 2 dimensi
-    public Matriks(float[][] A) {
+    public Matriks(double[][] A) {
         this.M = A.length;
         this.N = A[0].length;
         this.Mat = A;
@@ -66,7 +66,7 @@ public class Matriks {
         Scanner in = new Scanner(System.in);
         for(i = 0; i < M; i++) {
             for (j = 0; j < N; j++) {
-                this.Mat[i][j] = in.nextFloat();
+                this.Mat[i][j] = in.nextDouble();
             }
         }
     }
@@ -107,7 +107,7 @@ public class Matriks {
 
     // Menghitung determinan matriks dengan metode ekspansi kofaktor
     // Prekondisi: Matriks persegi
-    public float detCofactor() {
+    public double detCofactor() {
         if (M == 0)
         {
             return 0;
@@ -119,8 +119,8 @@ public class Matriks {
         else
         {
             int i, j, k, tempKol;
-            float cofactor;
-            float det = 0;
+            double cofactor;
+            double det = 0;
             int sign = 1;
     
             for (k = 0; k < N; k++)
