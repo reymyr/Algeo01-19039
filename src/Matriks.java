@@ -6,14 +6,14 @@ import java.lang.Math;
 public class Matriks {
     int M;
     int N;
-    float[][] Mat;
+    double[][] Mat;
 
     // Membentuk matriks kosong berukuran MxN
     public Matriks(int M, int N) { 
         int i, j;
         this.M = M;
         this.N = N;
-        this.Mat = new float[M][N];
+        this.Mat = new double[M][N];
         for(i = 0; i < M; i++) {
             for (j = 0; j < N; j++) {
                 this.Mat[i][j] = 0;
@@ -33,19 +33,19 @@ public class Matriks {
                 row = rowScanner.nextLine();
             }
             Scanner colScanner = new Scanner(row);
-            while (colScanner.hasNextFloat()) {
+            while (colScanner.hasNextDouble()) {
                 cols++;
-                colScanner.nextFloat();
+                colScanner.nextDouble();
             }
             rowScanner.close();
             colScanner.close();
             this.M = rows;
             this.N = cols;
-            this.Mat = new float[rows][cols];
+            this.Mat = new double[rows][cols];
             Scanner in = new Scanner(f);
             for(i = 0; i < rows; i++) {
                 for (j = 0; j < cols; j++) {
-                    this.Mat[i][j] = in.nextFloat();
+                    this.Mat[i][j] = in.nextDouble();
                 }
             }
         } catch (FileNotFoundException e) {
@@ -55,7 +55,7 @@ public class Matriks {
     }
 
     // Membentuk matriks dari array 2 dimensi
-    public Matriks(float[][] A) {
+    public Matriks(double[][] A) {
         this.M = A.length;
         this.N = A[0].length;
         this.Mat = A;
@@ -67,7 +67,7 @@ public class Matriks {
         Scanner in = new Scanner(System.in);
         for(i = 0; i < M; i++) {
             for (j = 0; j < N; j++) {
-                this.Mat[i][j] = in.nextFloat();
+                this.Mat[i][j] = in.nextDouble();
             }
         }
     }
@@ -77,7 +77,7 @@ public class Matriks {
         int i, j;
         for (i = 0; i < M; i++) {
             for (j = 0; j < N; j++) {
-                System.out.print(Mat[i][j] + " ");
+                System.out.print(String.format("%.2f", Mat[i][j]) + " ");
             }
             System.out.println();
         }
@@ -92,7 +92,7 @@ public class Matriks {
 
     // Menghitung determinan matriks dengan metode reduksi baris
     // Prekondisi: Matriks persegi
-    public void detRowReduction() {
+    public double detRowReduction() {
         if (M == 0){
             return 0;
         }
@@ -101,8 +101,8 @@ public class Matriks {
         }
         else { // Reduksi baris, membentuk matriks segitiga atas
             int i,j,k,p;
-            float det = 1;
-            float x;
+            double det = 1;
+            double x;
             int jumlahSwap = 0;
             int adaNol = 0;
             int jumlahNol = 0;
@@ -135,10 +135,10 @@ public class Matriks {
                     for (j = 0; j < N; j++){
                         if (i < j){
                             if (Mat[i][i] == 0 && i != (M-1)){ 
-                                float temp;
+                                double temp;
                                 int q =  i;
                                 int getNol = 0;
-                                int barisSwap;
+                                int barisSwap = i;
                                 while (q < M && getNol == 0) {
                                     if (Mat[q][i] != 0) {
                                         getNol = 1;
@@ -177,7 +177,7 @@ public class Matriks {
     }
     // Menghitung determinan matriks dengan metode ekspansi kofaktor
     // Prekondisi: Matriks persegi
-    public float detCofactor() {
+    public double detCofactor() {
         if (M == 0)
         {
             return 0;
@@ -189,8 +189,8 @@ public class Matriks {
         else
         {
             int i, j, k, tempKol;
-            float cofactor;
-            float det = 0;
+            double cofactor;
+            double det = 0;
             int sign = 1;
     
             for (k = 0; k < N; k++)
