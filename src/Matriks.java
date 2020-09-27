@@ -82,64 +82,99 @@ public class Matriks {
         }
     }
 
-    // gauss, matriks dijadikan eselon baris
-    public void gauss() {
-        float tmp, coef, divOne;
-        int i = 1;
-        int j, k;
+    // mencari posisi leading coefficient di baris i
+    public int leadingCoef(int i){
+        boolean found = false;
+        int j = 0;
 
-        for (j = 1; (j < N) && (i <= M); j++){
-            boolean cont = true;
-            if (Mat[i][j] == 0){
-                boolean found = false;
-                k = i + 1;
-                while (!found && (k <= M)){
-                    if (Mat[k][j] != 0){
-                        found = true;
-                    }
-                    else{
-                        k += 1;
-                    }
-                }
+        while (!found && (j < N)){
+            if (this.Mat[i][j] != 0){
+                found = true;
+            }
+            else{
+                j += 1;
+            }
+        }
 
-                if (found){
-                    // menukar elemen matriks 
-                    for (j = 1; j <= N; j++){
-                        tmp = Mat[i][j];
-                        Mat[i][j] = Mat[k][j];
-                        Mat[k][j] = tmp;
+        return j;
+    }
+
+    // mengubah matriks menjadi eselon baris sesuai metode gauss
+    public void gauss(){
+        int i, j, k;
+        double coef;
+
+        // OBE menjadi eselon baris
+        for (i = 0; i < M; i++){
+            for (k = i + 1; k < M; k++){
+                while (this.Mat[k][this.leadingCoef(i)] != 0){
+                    coef = this.Mat[k][this.leadingCoef(i)] / this.Mat[i][this.leadingCoef(i)];
+                    for (j = this.leadingCoef(i); j < N; j++){
+                        this.Mat[k][j] -= coef * this.Mat[i][j];
                     }
-                }
-                else{
-                    cont = false;
                 }
             }
+        }
 
-            if (cont){
-                // Membuat leading one
-                divOne = Mat[i][j]
-                for (j = 1; j <= N; j++){
-                    Mat[i][j] = Mat[i][j] / divOne;
-                }
-
-                // pengurangan matriks
-                for (k = i + 1; k <= M; k++){
-                    coef = Mat[k][j] / Mat[i][j];
-                    for (j = 1; j <= N; j++){
-                        Mat[k][j] -= coef * Mat[i][j];
-                    }
-                }
-
-                i += 1;
+        // pembuatan leading one
+        for (i = 0; i < M; i++){
+            for (j = this.leadingCoef(i); j < N; j++){
+                this.Mat[i][j] *= 1 / this.Mat[i][this.leadingCoef(i)];
             }
         }
     }
 
     // gauss-jordan, matriks dijadikan eselon baris tereduksi
     public void gaussJordan() {
-        int i, j;
-        float coef;
+        int i, j, k, key;
+        double coef, tmp;
 
+        this.gauss();
+
+        // sort dan swap baris (bubble sort)
+        // descending order
+        for (i = 0; i < M; i++){
+            key = this.leadingCoef(i);
+            for (k = i + 1; k < M; k++){
+                if (key <= this.leadingCoef(k)){
+                    for (j = 0; j < N; j++){
+                        tmp = this.Mat[key][j];
+                        this.Mat[key][j] = this.Mat[k][j];
+                        this.Mat[k][j] = tmp;
+                    }
+
+                    key = this.leadingCoef(k);
+                }
+            }
+        }
+
+        // OBE eselon baris
+        for (i = 0; i < M; i++){
+            for (k = i + 1; k < M; k++){
+                while (this.Mat[k][this.leadingCoef(i)] != 0){
+                    coef = this.Mat[k][this.leadingCoef(i)] / this.Mat[i][this.leadingCoef(i)];
+                    for (j = this.leadingCoef(i); j < N; j++){
+                        this.Mat[k][j] -= coef * this.Mat[i][j];
+                    }
+                }
+            }
+        }
+
+        // ascending order
+        for (i = 0; i < M; i++){
+            key = this.leadingCoef(i);
+            for (k = i + 1; k < M; k++){
+                if (key >= this.leadingCoef(k)){
+                    for (j = 0; j < N; j++){
+                        tmp = this.Mat[key][j];
+                        this.Mat[key][j] = this.Mat[k][j];
+                        this.Mat[k][j] = tmp;
+                    }
+
+                    key = this.leadingCoef(k);
+                }
+            }
+        }
     }
 
     // Menghitung determinan matriks dengan metode reduksi baris
