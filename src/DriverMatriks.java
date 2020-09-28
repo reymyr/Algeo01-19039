@@ -49,6 +49,12 @@ public class DriverMatriks {
         cfc.printMatriks();
         System.out.println();
 
+        System.out.println("Inverse");
+        Matriks inv = mat.inverseCofactor();
+        inv.printMatriks();
+        System.out.println();
+        
+
         System.out.println("Cofactor");
         System.out.println(mat.detCofactor());
         System.out.println("RowReduction");

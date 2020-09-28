@@ -100,6 +100,18 @@ public class Matriks {
 
     }
 
+    // Mengembalikan matriks transpose
+    public Matriks transpose() {
+        Matriks transposeMat = new Matriks(this.M, this.N);
+        for (int i = 0; i < this.M; i++) {
+            for (int j = 0; j < this.N; j++) {
+                transposeMat.Mat[j][i] = this.Mat[i][j];
+            }
+        }
+        return transposeMat;
+    }
+
+    // Mengembalikan matriks kofaktor
     public Matriks getCofactorMatriks() {
         int i, j, itemp, jtemp, tempRow, tempKol;
         int sign = 1;
@@ -129,6 +141,7 @@ public class Matriks {
                 cofactorMat.Mat[i][j] = sign*temp.detCofactor();
                 sign *= (-1);
             }
+            sign *= (-1);
         }
         return cofactorMat;
     }
@@ -239,5 +252,17 @@ public class Matriks {
             }
             return det;
         }
+    }
+
+    // Mengembalikan inverse dari matriks dengan metode kofaktor
+    public Matriks inverseCofactor() {
+        Matriks inverseMat = new Matriks(this.M, this.N);
+        double det = this.detCofactor();
+        for (int i = 0; i < this.M; i++) {
+            for (int j = 0; j < this.N; j++) {
+                inverseMat.Mat[i][j] = (1 / det) * this.getCofactorMatriks().transpose().Mat[i][j];
+            }
+        }
+        return inverseMat;
     }
 }
