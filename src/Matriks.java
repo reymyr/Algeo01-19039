@@ -99,10 +99,10 @@ public class Matriks {
         return j;
     }
 
-    // mengubah matriks menjadi eselon baris sesuai metode gauss
+    // membuat matriks eselon baris sesuai metode gauss
     public void gauss(){
-        int i, j, k;
-        double coef;
+        int i, j, k, key;
+        double coef, tmp;
 
         // OBE menjadi eselon baris
         for (i = 0; i < M; i++){
@@ -122,6 +122,23 @@ public class Matriks {
                 this.Mat[i][j] *= 1 / this.Mat[i][this.leadingCoef(i)];
             }
         }
+
+        // sort matriks
+        for (i = 0; i < M; i++){
+            key = this.leadingCoef(i);
+            for (k = i + 1; k < M; k++){
+                if (key >= this.leadingCoef(k)){
+                    for (j = 0; j < N; j++){
+                        tmp = this.Mat[key][j];
+                        this.Mat[key][j] = this.Mat[k][j];
+                        this.Mat[k][j] = tmp;
+                    }
+
+                    key = this.leadingCoef(k);
+                }
+            }
+        }
+
     }
 
     // gauss-jordan, matriks dijadikan eselon baris tereduksi
@@ -131,8 +148,7 @@ public class Matriks {
 
         this.gauss();
 
-        // sort dan swap baris (bubble sort)
-        // descending order
+        // sort descending
         for (i = 0; i < M; i++){
             key = this.leadingCoef(i);
             for (k = i + 1; k < M; k++){
@@ -160,7 +176,7 @@ public class Matriks {
             }
         }
 
-        // ascending order
+        // sort ascending
         for (i = 0; i < M; i++){
             key = this.leadingCoef(i);
             for (k = i + 1; k < M; k++){
