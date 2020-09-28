@@ -124,18 +124,11 @@ public class Matriks {
         }
 
         // sort matriks
-        for (i = 0; i < M; i++){
-            key = this.leadingCoef(i);
-            for (k = i + 1; k < M; k++){
-                if (key >= this.leadingCoef(k)){
-                    for (j = 0; j < N; j++){
-                        tmp = this.Mat[key][j];
-                        this.Mat[key][j] = this.Mat[k][j];
-                        this.Mat[k][j] = tmp;
-                    }
-
-                    key = this.leadingCoef(k);
-                }
+        for (i = 0; i <=\ M; i++){
+            for (k = i+1; k < M; j++){
+                if (this.leadingCoef(i) > this.leadingCoef(k)){
+                    tmp = this.Mat[i][k]
+                } 
             }
         }
 
@@ -143,53 +136,23 @@ public class Matriks {
 
     // gauss-jordan, matriks dijadikan eselon baris tereduksi
     public void gaussJordan() {
-        int i, j, k, key;
-        double coef, tmp;
+        int i, j, k;
+        double coef;
 
         this.gauss();
 
-        // sort descending
         for (i = 0; i < M; i++){
-            key = this.leadingCoef(i);
-            for (k = i + 1; k < M; k++){
-                if (key <= this.leadingCoef(k)){
-                    for (j = 0; j < N; j++){
-                        tmp = this.Mat[key][j];
-                        this.Mat[key][j] = this.Mat[k][j];
-                        this.Mat[k][j] = tmp;
-                    }
-
-                    key = this.leadingCoef(k);
-                }
-            }
-        }
-
-        // OBE eselon baris
-        for (i = 0; i < M; i++){
-            for (k = i + 1; k < M; k++){
-                while (this.Mat[k][this.leadingCoef(i)] != 0){
-                    coef = this.Mat[k][this.leadingCoef(i)] / this.Mat[i][this.leadingCoef(i)];
-                    for (j = this.leadingCoef(i); j < N; j++){
-                        this.Mat[k][j] -= coef * this.Mat[i][j];
+            if (this.leadingCoef(i) != 0){
+                for (k = 0; k < M; k++){
+                    if (k != i){
+                        coef = this.Mat[k][this.leadingCoef(i)];
+                        for (j = 0; j < N; j++){
+                            this.Mat[k][j] += coef * this.Mat[i][j];
+                        }
                     }
                 }
             }
-        }
 
-        // sort ascending
-        for (i = 0; i < M; i++){
-            key = this.leadingCoef(i);
-            for (k = i + 1; k < M; k++){
-                if (key >= this.leadingCoef(k)){
-                    for (j = 0; j < N; j++){
-                        tmp = this.Mat[key][j];
-                        this.Mat[key][j] = this.Mat[k][j];
-                        this.Mat[k][j] = tmp;
-                    }
-
-                    key = this.leadingCoef(k);
-                }
-            }
         }
     }
 
