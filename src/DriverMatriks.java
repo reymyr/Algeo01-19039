@@ -40,10 +40,14 @@ public class DriverMatriks {
         }
         
         mat.printMatriks();
-
+        System.out.println(mat.M);
+        System.out.println(mat.N);
 
         Cramer.solve(mat);
         
+        Matriks cfc = mat.getCofactorMatriks();
+        cfc.printMatriks();
+        System.out.println();
 
         System.out.println("Cofactor");
         System.out.println(mat.detCofactor());

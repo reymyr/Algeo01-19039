@@ -100,6 +100,40 @@ public class Matriks {
 
     }
 
+    public Matriks getCofactorMatriks() {
+        int i, j, itemp, jtemp, tempRow, tempKol;
+        int sign = 1;
+        Matriks cofactorMat = new Matriks(this.M, this.N);
+        
+        for (i = 0; i < this.M; i++) {
+            for (j = 0; j < this.N; j++)
+            {
+                Matriks temp = new Matriks(M-1, N-1);
+                tempRow = 0;
+                for (itemp = 0; itemp < this.M; itemp++)
+                {
+                    tempKol = 0;
+                    for (jtemp = 0; jtemp < this.N; jtemp++)
+                    {
+                        if (itemp != i && jtemp != j)
+                        {
+                            temp.Mat[tempRow][tempKol] = this.Mat[itemp][jtemp];
+                            tempKol++;
+                            if (tempKol == this.N-1) {
+                                tempRow++;
+                            }
+                        }
+                    }
+                    
+                }
+                cofactorMat.Mat[i][j] = sign*temp.detCofactor();
+                sign *= (-1);
+            }
+        }
+        return cofactorMat;
+    }
+
+
     // Menghitung determinan matriks dengan metode reduksi baris
     // Prekondisi: Matriks persegi
     public double detRowReduction() {
@@ -198,29 +232,10 @@ public class Matriks {
         }
         else
         {
-            int i, j, k, tempKol;
-            double cofactor;
             double det = 0;
-            int sign = 1;
-    
-            for (k = 0; k < N; k++)
-            {
-                Matriks temp = new Matriks(M-1, N-1);
-                cofactor = sign*Mat[0][k];
-                for (i = 1; i < M; i++)
-                {
-                    tempKol = 0;
-                    for (j = 0; j < N; j++)
-                    {
-                        if (j != k)
-                        {
-                            temp.Mat[i-1][tempKol] = this.Mat[i][j];
-                            tempKol++;
-                        }
-                    }
-                }
-                det += cofactor*temp.detCofactor();
-                sign *= (-1);
+            Matriks cofactroMatriks = this.getCofactorMatriks();
+            for (int j = 0; j < this.N; j++) {
+                det += this.Mat[0][j]*cofactroMatriks.Mat[0][j];
             }
             return det;
         }
