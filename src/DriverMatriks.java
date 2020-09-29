@@ -50,16 +50,19 @@ public class DriverMatriks {
         cfc.printMatriks();
         System.out.println();
 
-        System.out.println("Inverse");
+        System.out.println("Inverse cofactor");
         Matriks inv = mat.inverseCofactor();
         inv.printMatriks();
+        System.out.println();
+
+        System.out.println("Inverse gj");
+        mat.inverseGaussJordan();
         System.out.println();
         
 
         System.out.println("Cofactor");
         System.out.println(mat.detCofactor());
-        System.out.println("RowReduction");
-        System.out.println(mat.detRowReduction());
+
         System.out.println();
         mat.printMatriks();
 
