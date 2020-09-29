@@ -44,6 +44,16 @@ public class DriverMatriks {
         System.out.println(mat.M);
         System.out.println(mat.N);
 
+        //mat.printMatriks();
+        //System.out.println(mat.M);
+        //System.out.println(mat.N);
+
+        //Cramer.solve(mat);
+        SPLInverse.solve(mat);
+        
+        Matriks cfc = mat.getCofactorMatriks();
+        cfc.printMatriks();
+        System.out.println();
 
         SPLSolver.gauss(mat);
         System.out.println();
