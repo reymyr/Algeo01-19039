@@ -69,8 +69,8 @@ public class Algeo {
                 
             case 3:
                 System.out.println("Matriks balikan\n"
-                                    + "1. Metode reduksi baris\n"
-                                    + "2. Metode ekspansi kofaktor\n");
+                                    + "1. Metode kofaktor\n"
+                                    + "2. Metode Gauss-Jordan\n");
                 int choiceInv;
                 System.out.print("Pilihan: ");
                 choiceInv = Integer.parseInt(in.nextLine());    
