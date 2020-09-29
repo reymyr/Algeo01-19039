@@ -41,6 +41,7 @@ public class DriverMatriks {
         
         mat.printMatriks();
         Matriks mat2 = mat.clone();
+        Matriks mat3 = mat.clone();
         System.out.println(mat.M);
         System.out.println(mat.N);
 
@@ -49,7 +50,6 @@ public class DriverMatriks {
         //System.out.println(mat.N);
 
         //Cramer.solve(mat);
-        SPLInverse.solve(mat);
         
         Matriks cfc = mat.getCofactorMatriks();
         cfc.printMatriks();
@@ -58,6 +58,9 @@ public class DriverMatriks {
         SPLSolver.gauss(mat);
         System.out.println();
         SPLSolver.gaussJordan(mat2);
+
+        System.out.println();
+        SPLSolver.inverse(mat3);
 
         // Cramer.solve(mat);
         
