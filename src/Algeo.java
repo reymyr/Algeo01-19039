@@ -20,7 +20,7 @@ public class Algeo {
                 Matriks mat;
                 System.out.println("1. Input dari keyboard");
                 System.out.println("2. Input dari file"); 
-                System.out.print("Choice: ");
+                System.out.print("Pilihan (1/2): ");
                 choiceInput = Integer.parseInt(in.nextLine());
                 if (choiceInput == 1) {
                     System.out.print("m: ");
@@ -42,7 +42,7 @@ public class Algeo {
                     mat = new Matriks(A);
                 }
                 else if (choiceInput == 2) {
-                    System.out.print("Nama file: ");
+                    System.out.print("Nama file (tanpa .txt): ");
                     String filename = in.nextLine();
                     File inputFile = new File("../test/"+filename+".txt");
                     mat = new Matriks(inputFile);
@@ -87,7 +87,7 @@ public class Algeo {
                                     + "1. Metode reduksi baris\n"
                                     + "2. Metode ekspansi kofaktor\n");
                 int choiceDet;
-                System.out.print("Pilihan: ");
+                System.out.print("Pilihan (1/2): ");
                 choiceDet = Integer.parseInt(in.nextLine());    
                 switch (choiceDet) {
                     case 1:
@@ -109,7 +109,7 @@ public class Algeo {
                                     + "1. Metode kofaktor\n"
                                     + "2. Metode Gauss-Jordan\n");
                 int choiceInv;
-                System.out.print("Pilihan: ");
+                System.out.print("Pilihan (1/2): ");
                 choiceInv = Integer.parseInt(in.nextLine());    
                 switch (choiceInv) {
                     case 1:

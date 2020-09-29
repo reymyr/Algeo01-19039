@@ -6,9 +6,9 @@ public class DriverMatriks {
         int m, n, i, j, choice;
         Matriks mat;
         Scanner in = new Scanner(System.in);
-        System.out.println("1. Input from keyboard");
-        System.out.println("2. Input from file"); 
-        System.out.print("Choice: ");
+        System.out.println("1. Input dari keyboard");
+        System.out.println("2. Input dari file"); 
+        System.out.print("Pilihan (1/2): ");
         choice = Integer.parseInt(in.nextLine());
         if (choice == 1) {
             System.out.print("m: ");
@@ -30,7 +30,7 @@ public class DriverMatriks {
             mat = new Matriks(A);
         }
         else if (choice == 2) {
-            System.out.print("File name: ");
+            System.out.print("File name (tanpa .txt): ");
             String filename = in.nextLine();
             File inputFile = new File("../test/"+filename+".txt");
             mat = new Matriks(inputFile);

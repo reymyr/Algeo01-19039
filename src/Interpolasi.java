@@ -11,7 +11,7 @@ public class Interpolasi {
         Scanner in = new Scanner(System.in);
         System.out.println("1. Input dari keyboard");
         System.out.println("2. Input dari file"); 
-        System.out.print("Choice: ");
+        System.out.print("Pilihan (1/2): ");
         choiceInput = Integer.parseInt(in.nextLine());
         if (choiceInput == 1) {
             int n;
@@ -39,7 +39,7 @@ public class Interpolasi {
             this.x = in.nextDouble();
         }
         else if (choiceInput == 2) {
-            System.out.print("Nama file: ");
+            System.out.print("Nama file (tanpa .txt): ");
             String filename = in.nextLine();
             File inputFile = new File("../test/"+filename+".txt");
             try {
