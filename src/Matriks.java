@@ -93,11 +93,107 @@ public class Matriks {
         }
     }
 
-    public void gauss() {
+    // menukar baris matriks
+    public void swapRow(int i, int j) {
+        double temp;
+        for (int col = 0; col < this.N; col++) {
+            temp = this.Mat[i][col];
+            this.Mat[i][col] = this.Mat[j][col];
+            this.Mat[j][col] = temp;
+        }
+    }
+
+    // mencari posisi leading coefficient di baris i
+    public int leadingCoef(int i){
+        boolean found = false;
+        int j = 0;
+
+        while (!found && (j < N)){
+            if (this.Mat[i][j] != 0){
+                found = true;
+            }
+            else{
+                j += 1;
+            }
+        }
+
+        return j;
+    }
+
+    // mengecek apakah satu baris i bernilai nol semua atau tidak
+    public boolean rowZero(int i){
+        int j = 0;
+        boolean nol = true;
+        while ((nol) && (j < N - 1)){
+            if (this.Mat[i][j] != 0){
+                nol = false;
+            }
+            else{
+                j += 1;
+            }
+        }
+
+        return nol;
+    }
+
+    // membuat matriks eselon baris sesuai metode gauss
+    public void gauss(){
+        int i, j, k;
+        double coef;
+
+        // OBE menjadi eselon baris
+        for (i = 0; i < M; i++){
+            if (!this.rowZero(i)){
+                for (k = i + 1; k < M; k++){
+                    while (this.Mat[k][this.leadingCoef(i)] != 0){
+                        coef = this.Mat[k][this.leadingCoef(i)] / this.Mat[i][this.leadingCoef(i)];
+                        for (j = this.leadingCoef(i); j < N; j++){
+                            this.Mat[k][j] -= coef * this.Mat[i][j];
+                        }
+                    }
+                }
+            }
+        }
+
+        // pembuatan leading one
+        for (i = 0; i < M; i++){
+            if (!this.rowZero(i)){
+                for (j = this.leadingCoef(i); j < N; j++){
+                    this.Mat[i][j] *= 1 / this.Mat[i][this.leadingCoef(i)];
+                }
+            }
+        }
+
+        // sort matriks
+        for (i = 0; i <= M; i++){
+            for (k = i+1; k < M; k++){
+                if (this.leadingCoef(i) > this.leadingCoef(k)){
+                    this.swapRow(i, k);
+                } 
+            }
+        }
 
     }
-    public void gaussJordan() {
 
+    // gauss-jordan, matriks dijadikan eselon baris tereduksi
+    public void gaussJordan() {
+        int i, j, k;
+        double coef;
+
+        this.gauss();
+
+        for (i = 0; i < M; i++){
+            if (!this.rowZero(i)){
+                for (k = 0; k < M; k++){
+                    if (k != i){
+                        coef = this.Mat[k][this.leadingCoef(i)];
+                        for (j = 0; j < N; j++){
+                            this.Mat[k][j] -= coef * this.Mat[i][j];
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // Mengembalikan matriks transpose
@@ -114,7 +210,7 @@ public class Matriks {
     // Mengembalikan matriks kofaktor
     public Matriks getCofactorMatriks() {
         int i, j, itemp, jtemp, tempRow, tempKol;
-        int sign = 1;
+        //int sign = 1;
         Matriks cofactorMat = new Matriks(this.M, this.N);
         
         for (i = 0; i < this.M; i++) {
@@ -138,10 +234,10 @@ public class Matriks {
                     }
                     
                 }
-                cofactorMat.Mat[i][j] = sign*temp.detCofactor();
-                sign *= (-1);
+                cofactorMat.Mat[i][j] = (Math.pow(-1, (i + j)))*(temp.detCofactor());
+                //sign *= (-1);
             }
-            sign *= (-1);
+            //sign *= (-1);
         }
         return cofactorMat;
     }
