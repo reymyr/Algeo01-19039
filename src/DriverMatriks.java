@@ -39,11 +39,12 @@ public class DriverMatriks {
             mat = new Matriks(1, 1);
         }
         
-        mat.printMatriks();
-        System.out.println(mat.M);
-        System.out.println(mat.N);
+        //mat.printMatriks();
+        //System.out.println(mat.M);
+        //System.out.println(mat.N);
 
-        Cramer.solve(mat);
+        //Cramer.solve(mat);
+        SPLInverse.solve(mat);
         
         Matriks cfc = mat.getCofactorMatriks();
         cfc.printMatriks();
