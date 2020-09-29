@@ -211,10 +211,6 @@ public class Matriks {
     // Mengembalikan matriks kofaktor
     public Matriks getCofactorMatriks() {
         int i, j, itemp, jtemp, tempRow, tempKol;
-<<<<<<< HEAD
-        //int sign = 1;
-=======
->>>>>>> c696eff5858a6af0eea0f3bc74ac402c4c30d761
         Matriks cofactorMat = new Matriks(this.M, this.N);
         
         for (i = 0; i < this.M; i++) {
@@ -238,15 +234,8 @@ public class Matriks {
                     }
                     
                 }
-<<<<<<< HEAD
-                cofactorMat.Mat[i][j] = (Math.pow(-1, (i + j)))*(temp.detCofactor());
-                //sign *= (-1);
-            }
-            //sign *= (-1);
-=======
                 cofactorMat.Mat[i][j] = Math.pow(-1, i+j)*temp.detCofactor();
             }
->>>>>>> c696eff5858a6af0eea0f3bc74ac402c4c30d761
         }
         return cofactorMat;
     }
