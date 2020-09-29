@@ -62,6 +62,13 @@ public class DriverMatriks {
         System.out.println();
         mat.printMatriks();
 
+        System.out.println();
+        mat.gauss();
+        mat.printMatriks();
+        System.out.println();
+        mat.gaussJordan();
+        mat.printMatriks();
+        System.out.println();
         in.close();
     }
 }
