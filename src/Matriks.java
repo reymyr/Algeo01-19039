@@ -82,6 +82,7 @@ public class Matriks {
         }
     }
 
+    // menukar baris matriks
     public void swapRow(int i, int j) {
         double temp;
         for (int col = 0; col < this.N; col++) {
@@ -108,18 +109,36 @@ public class Matriks {
         return j;
     }
 
+    // mengecek apakah satu baris i bernilai nol semua atau tidak
+    public boolean rowZero(int i){
+        int j = 0;
+        boolean nol = true;
+        while ((nol) && (j < N - 1)){
+            if (this.Mat[i][j] != 0){
+                nol = false;
+            }
+            else{
+                j += 1;
+            }
+        }
+
+        return nol;
+    }
+
     // membuat matriks eselon baris sesuai metode gauss
     public void gauss(){
-        int i, j, k, key;
-        double coef, tmp;
+        int i, j, k;
+        double coef;
 
         // OBE menjadi eselon baris
         for (i = 0; i < M; i++){
-            for (k = i + 1; k < M; k++){
-                while (this.Mat[k][this.leadingCoef(i)] != 0){
-                    coef = this.Mat[k][this.leadingCoef(i)] / this.Mat[i][this.leadingCoef(i)];
-                    for (j = this.leadingCoef(i); j < N; j++){
-                        this.Mat[k][j] -= coef * this.Mat[i][j];
+            if (!this.rowZero(i)){
+                for (k = i + 1; k < M; k++){
+                    while (this.Mat[k][this.leadingCoef(i)] != 0){
+                        coef = this.Mat[k][this.leadingCoef(i)] / this.Mat[i][this.leadingCoef(i)];
+                        for (j = this.leadingCoef(i); j < N; j++){
+                            this.Mat[k][j] -= coef * this.Mat[i][j];
+                        }
                     }
                 }
             }
@@ -127,8 +146,10 @@ public class Matriks {
 
         // pembuatan leading one
         for (i = 0; i < M; i++){
-            for (j = this.leadingCoef(i); j < N; j++){
-                this.Mat[i][j] *= 1 / this.Mat[i][this.leadingCoef(i)];
+            if (!this.rowZero(i)){
+                for (j = this.leadingCoef(i); j < N; j++){
+                    this.Mat[i][j] *= 1 / this.Mat[i][this.leadingCoef(i)];
+                }
             }
         }
 
@@ -151,7 +172,7 @@ public class Matriks {
         this.gauss();
 
         for (i = 0; i < M; i++){
-            if (this.leadingCoef(i) != 0){
+            if (!this.rowZero(i)){
                 for (k = 0; k < M; k++){
                     if (k != i){
                         coef = this.Mat[k][this.leadingCoef(i)];
@@ -161,7 +182,6 @@ public class Matriks {
                     }
                 }
             }
-
         }
     }
 
