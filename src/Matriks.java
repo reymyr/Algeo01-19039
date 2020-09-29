@@ -124,7 +124,7 @@ public class Matriks {
     public boolean rowZero(int i){
         int j = 0;
         boolean nol = true;
-        while ((nol) && (j < N - 1)){
+        while ((nol) && (j < N)){
             if (this.Mat[i][j] != 0){
                 nol = false;
             }
@@ -158,8 +158,9 @@ public class Matriks {
         // pembuatan leading one
         for (i = 0; i < M; i++){
             if (!this.rowZero(i)){
+                double f = this.Mat[i][this.leadingCoef(i)];
                 for (j = this.leadingCoef(i); j < N; j++){
-                    this.Mat[i][j] *= 1 / this.Mat[i][this.leadingCoef(i)];
+                    this.Mat[i][j] *= 1 / f;
                 }
             }
         }
@@ -198,7 +199,7 @@ public class Matriks {
 
     // Mengembalikan matriks transpose
     public Matriks transpose() {
-        Matriks transposeMat = new Matriks(this.M, this.N);
+        Matriks transposeMat = new Matriks(this.N, this.M);
         for (int i = 0; i < this.M; i++) {
             for (int j = 0; j < this.N; j++) {
                 transposeMat.Mat[j][i] = this.Mat[i][j];
@@ -210,7 +211,6 @@ public class Matriks {
     // Mengembalikan matriks kofaktor
     public Matriks getCofactorMatriks() {
         int i, j, itemp, jtemp, tempRow, tempKol;
-        int sign = 1;
         Matriks cofactorMat = new Matriks(this.M, this.N);
         
         for (i = 0; i < this.M; i++) {
@@ -234,10 +234,8 @@ public class Matriks {
                     }
                     
                 }
-                cofactorMat.Mat[i][j] = sign*temp.detCofactor();
-                sign *= (-1);
+                cofactorMat.Mat[i][j] = Math.pow(-1, i+j)*temp.detCofactor();
             }
-            sign *= (-1);
         }
         return cofactorMat;
     }
@@ -351,6 +349,7 @@ public class Matriks {
     }
 
     // Mengembalikan inverse dari matriks dengan metode kofaktor
+    // Prekondisi: matriks persegi
     public Matriks inverseCofactor() {
         Matriks inverseMat = new Matriks(this.M, this.N);
         double det = this.detCofactor();
@@ -360,5 +359,41 @@ public class Matriks {
             }
         }
         return inverseMat;
+    }
+
+    // Mengembalikan inverse dari matriks dengan metode Gauss Jordan
+    // Prekondisi: matriks persegi
+    public void inverseGaussJordan() {
+        Matriks inverseMat = new Matriks(this.M, this.N);
+        Matriks temp = new Matriks(this.M, this.N*2);
+        for (int i = 0; i < this.M; i++) {
+            for (int j = 0; j < this.N; j++) {
+                temp.Mat[i][j] = this.Mat[i][j];
+            }
+        }
+        for (int i = 0; i < this.M; i++) {
+            temp.Mat[i][i+this.N] = 1;
+        }
+        temp.gaussJordan();
+        int i = 0;
+        boolean adaDet = true;
+        while (adaDet && i < this.M) {
+            if (temp.Mat[i][i] == 0) {
+                adaDet = false;
+            }
+            i++;
+        }
+
+        if (!adaDet) {
+            System.out.println("Matriks tidak memiliki invers");
+        }
+        else {
+            for (int i2 = 0; i2 < this.M; i2++) {
+                for (int j2 = 0; j2 < this.N; j2++) {
+                    inverseMat.Mat[i2][j2] = temp.Mat[i2][j2+this.N];
+                }
+            }
+            inverseMat.printMatriks();
+        }
     }
 }
