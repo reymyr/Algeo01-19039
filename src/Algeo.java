@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.File;
 
 public class Algeo {
     public static void main(String[] args) {
@@ -15,7 +16,43 @@ public class Algeo {
         choice = Integer.parseInt(in.nextLine());
         switch (choice) {
             case 1:
-                System.out.println("Sisten Persamaan Linier\n"
+                int m, n, i, j, choiceInput;
+                Matriks mat;
+                System.out.println("1. Input dari keyboard");
+                System.out.println("2. Input dari file"); 
+                System.out.print("Choice: ");
+                choiceInput = Integer.parseInt(in.nextLine());
+                if (choiceInput == 1) {
+                    System.out.print("m: ");
+                    m = in.nextInt();
+                    System.out.print("n: ");
+                    n = in.nextInt();
+                    double[][] A = new double[m][n+1];
+                    for(i = 0; i < m; i++) {
+                        for (j = 0; j < n+1; j++) {
+                            if (j != n) {
+                                System.out.print("Koefisien a"+(i+1)+(j+1)+": ");
+                            }
+                            else {
+                                System.out.print("Konstanta b"+(i+1)+": ");
+                            }
+                            A[i][j] = in.nextDouble();
+                        }
+                    }
+                    mat = new Matriks(A);
+                }
+                else if (choiceInput == 2) {
+                    System.out.print("Nama file: ");
+                    String filename = in.nextLine();
+                    File inputFile = new File("../test/"+filename+".txt");
+                    mat = new Matriks(inputFile);
+                }
+                else {
+                    System.out.println("Input tidak valid");
+                    break;
+                }
+                
+                System.out.println("\nSisten Persamaan Linier\n"
                                     + "1. Metode eliminasi Gauss\n"
                                     + "2. Metode eliminasi Gauss-Jordan\n"
                                     + "3. Metode matriks balikan\n"
@@ -25,19 +62,19 @@ public class Algeo {
                 choiceSPL = Integer.parseInt(in.nextLine());    
                 switch (choiceSPL) {
                     case 1:
-                
+                        SPLSolver.gauss(mat);
                         break;
 
                     case 2:
-                    
+                        SPLSolver.gaussJordan(mat);
                         break;
 
                     case 3:
-                    
+                        SPLSolver.inverse(mat);
                         break;
 
                     case 4:
-                    
+                        SPLSolver.cramer(mat);
                         break;
                 
                     default:
@@ -90,7 +127,8 @@ public class Algeo {
                 break;
 
             case 4:
-            
+                Interpolasi interp = new Interpolasi();
+                interp.solve();
                 break;
 
             case 5:
