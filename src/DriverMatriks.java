@@ -40,38 +40,44 @@ public class DriverMatriks {
         }
         
         mat.printMatriks();
+        Matriks mat2 = mat.clone();
         System.out.println(mat.M);
         System.out.println(mat.N);
 
-        Cramer.solve(mat);
+
+        SPLSolver.gauss(mat);
+        System.out.println();
+        SPLSolver.gaussJordan(mat2);
+
+        // Cramer.solve(mat);
         
-        Matriks cfc = mat.getCofactorMatriks();
-        cfc.printMatriks();
-        System.out.println();
+        // Matriks cfc = mat.getCofactorMatriks();
+        // cfc.printMatriks();
+        // System.out.println();
 
-        System.out.println("Inverse cofactor");
-        Matriks inv = mat.inverseCofactor();
-        inv.printMatriks();
-        System.out.println();
+        // System.out.println("Inverse cofactor");
+        // Matriks inv = mat.inverseCofactor();
+        // inv.printMatriks();
+        // System.out.println();
 
-        System.out.println("Inverse gj");
-        mat.inverseGaussJordan();
-        System.out.println();
+        // System.out.println("Inverse gj");
+        // mat.inverseGaussJordan();
+        // System.out.println();
         
 
-        System.out.println("Cofactor");
-        System.out.println(mat.detCofactor());
+        // System.out.println("Cofactor");
+        // System.out.println(mat.detCofactor());
 
-        System.out.println();
-        mat.printMatriks();
+        // System.out.println();
+        // mat.printMatriks();
 
-        System.out.println();
-        mat.gauss();
-        mat.printMatriks();
-        System.out.println();
-        mat.gaussJordan();
-        mat.printMatriks();
-        System.out.println();
+        // System.out.println();
+        // mat.gauss();
+        // mat.printMatriks();
+        // System.out.println();
+        // mat.gaussJordan();
+        // mat.printMatriks();
+        // System.out.println();
         in.close();
     }
 }
