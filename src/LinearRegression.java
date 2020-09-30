@@ -13,15 +13,30 @@ public class LinearRegression {
         System.out.print("Choice (1/2): ");
         choiceInput = Integer.parseInt(in.nextLine());
         if (choiceInput == 1){
-            int n, y;
-            System.out.print("n: ");
+            int n, col;
+            System.out.print("n (jumlah peubah x): ");
             n = in.nextInt();
-            double[] A = new double[n]; // ini gatau mesti array apa matriks
-            for (int i = 1; i <= n; i++){
-                
+            System.out.print("k (): ");
+            col = in.nextInt();
+            double[][] A = new double[n][col+1];
+            for (int i = 0; i < n; i++){
+                for (int j = 0; j < col+1; j++){
+                    if (j != n){
+                        System.out.print("Masukkan x" + (i + 1) + (j + 1) + ": ");
+                    }
+                    else{
+                        System.out.print("Masukkan x" + (i + 1) + ": ");
+                    }
+                    A[i][j] = in.nextDouble();
+                }
             }
+            mat = new Matriks(A);
 
         }
 
+    }
+
+    public void LRSolve() {
+        
     }
 }
