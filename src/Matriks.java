@@ -92,7 +92,6 @@ public class Matriks {
             System.out.println();
         }
     }
-
     // menukar baris matriks
     public void swapRow(int i, int j) {
         double temp;

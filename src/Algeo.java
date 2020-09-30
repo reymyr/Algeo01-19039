@@ -83,15 +83,90 @@ public class Algeo {
                 }
                 break;
             case 2:
+                System.out.println("1. Input dari keyboard");
+                System.out.println("2. Input dari file"); 
+                System.out.print("Choice: ");
+                choiceInput = Integer.parseInt(in.nextLine());
+                if (choiceInput == 1) {
+                    System.out.print("n: ");
+                    n = in.nextInt();
+                    double[][] A = new double[n][n];
+                    for(i = 0; i < n; i++) {
+                        for (j = 0; j < n; j++) {
+                            System.out.print("Koefisien a"+(i+1)+(j+1)+": ");
+                            A[i][j] = in.nextDouble();
+                        }
+                    }
+                    mat = new Matriks(A);
+                }
+                else if (choiceInput == 2) {
+                    System.out.print("Nama file: ");
+                    String filename = in.nextLine();
+                    File inputFile = new File("../test/"+filename+".txt");
+                    mat = new Matriks(inputFile);
+                }
+                else {
+                    System.out.println("Input tidak valid");
+                    break;
+                }
                 System.out.println("Determinan\n"
                                     + "1. Metode reduksi baris\n"
                                     + "2. Metode ekspansi kofaktor\n");
                 int choiceDet;
                 System.out.print("Pilihan: ");
-                choiceDet = Integer.parseInt(in.nextLine());    
-                switch (choiceDet) {
+                choiceDet = Integer.parseInt(in.nextLine());  
+                switch (choiceDet){
                     case 1:
+                        System.out.println("Determinannya adalah " + mat.detRowReduction());
+                        break;
 
+                    case 2:
+                        System.out.println("Determinannya adalah " + mat.detCofactor());
+                        mat.detCofactor();
+                        break;
+
+                    default:
+                        System.out.println("Input pilihan tidak valid");
+                        break;
+                }
+                break;
+                
+            case 3:
+                System.out.println("1. Input dari keyboard");
+                System.out.println("2. Input dari file"); 
+                System.out.print("Choice: ");
+                choiceInput = Integer.parseInt(in.nextLine());
+                if (choiceInput == 1) {
+                    System.out.print("n: ");
+                    n = in.nextInt();
+                    double[][] A = new double[n][n];
+                    for(i = 0; i < n; i++) {
+                        for (j = 0; j < n; j++) {
+                            System.out.print("Koefisien a"+(i+1)+(j+1)+": ");
+                            A[i][j] = in.nextDouble();
+                        }
+                    }
+                    mat = new Matriks(A);
+                }
+                else if (choiceInput == 2) {
+                    System.out.print("Nama file: ");
+                    String filename = in.nextLine();
+                    File inputFile = new File("../test/"+filename+".txt");
+                    mat = new Matriks(inputFile);
+                }
+                else {
+                    System.out.println("Input tidak valid");
+                    break;
+                }
+                System.out.println("Matriks balikan\n"
+                                    + "1. Metode kofaktor\n"
+                                    + "2. Metode Gauss-Jordan\n");
+                int choiceInv;
+                System.out.print("Pilihan: ");
+                choiceInv = Integer.parseInt(in.nextLine());    
+                switch (choiceInv) {
+                    case 1:
+                    
                         break;
 
                     case 2:
@@ -102,28 +177,6 @@ public class Algeo {
                         System.out.println("Input pilihan tidak valid");
                         break;
                 }
-                break;
-                
-            case 3:
-                System.out.println("Matriks balikan\n"
-                                    + "1. Metode kofaktor\n"
-                                    + "2. Metode Gauss-Jordan\n");
-                int choiceInv;
-                System.out.print("Pilihan: ");
-                choiceInv = Integer.parseInt(in.nextLine());    
-                switch (choiceInv) {
-                    case 1:
-
-                        break;
-
-                    case 2:
-
-                        break;
-
-                    default:
-                        System.out.println("Input pilihan tidak valid");
-                        break;
-                    }
                 break;
 
             case 4:
