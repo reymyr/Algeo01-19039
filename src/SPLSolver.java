@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter; 
@@ -104,6 +105,67 @@ public class SPLSolver {
         }
     }
 
+    private void printParametrik() {
+        String[] variables = {"r", "s", "t", "u", "v", "w"};
+        String sols[] = new String[this.mat.N-1];
+        Arrays.fill(sols, "");
+        int k = 0;
+        for (int i = 0; i < this.mat.M; i++) {
+            for (int j = 0; j < this.mat.N-1; j++) {
+                if (j != this.mat.leadingCoef(i) && sols[j] == "" && this.mat.Mat[i][j] != 0) {
+                    sols[j] = variables[k];
+                    k++;
+                }
+            }
+        }
+        for (int i = 0; i < this.mat.M; i++) {
+            if (this.mat.leadingCoef(i) < this.mat.N) {
+                sols[this.mat.leadingCoef(i)] = Double.toString(this.mat.Mat[i][this.mat.N-1]);
+                if (this.mat.Mat[i][this.mat.N-1] == 0) {
+                    sols[this.mat.leadingCoef(i)] = "";
+                }
+                for (int j = this.mat.leadingCoef(i)+1; j < this.mat.N-1; j++) {
+                    if (this.mat.Mat[i][j] != 0) {
+                        String s = Double.toString(-1*this.mat.Mat[i][j]);
+                        if (this.mat.Mat[i][j] <= 0 && sols[this.mat.leadingCoef(i)] != "") {
+                            s = " + "+s;
+                        }
+                        else if (this.mat.Mat[i][j] > 0 && sols[this.mat.leadingCoef(i)] != "") {
+                            s = " - " + Double.toString(this.mat.Mat[i][j]) ;
+                        }
+                        sols[this.mat.leadingCoef(i)] += s + sols[j];
+                    }
+                }
+            }
+        }
+        if (this.toFile) {
+            JFrame frame = new JFrame();
+            JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
+            if (fileChooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                try {
+                    FileWriter writer = new FileWriter(file);
+                    for (int i = 0; i < sols.length; i++) {
+                        writer.write("X"+(i+1)+" = " + sols[i]+"\n");
+                    }
+                    writer.close();
+                    frame.dispose();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                System.out.println("No file selected");
+                System.exit(0);
+            }
+        }
+        else {
+            for (int i = 0; i < sols.length; i++) {
+                System.out.println("X"+(i+1)+" = " + sols[i]);
+            }
+        }
+    }  
+
     public void cramer() {
         if (this.mat.M == this.mat.N-1) {
             double[][] tempA = new double[this.mat.M][this.mat.N-1];
@@ -158,7 +220,8 @@ public class SPLSolver {
 
         if (hasSolution) {
             if (this.mat.rowZero(this.mat.M-1) || this.mat.N-1 > this.mat.M) {
-                System.out.println("SPL memiliki banyak solusi");
+                this.mat.gaussJordan();
+                printParametrik();
             }
             else {
                 this.solutions = new double[this.mat.N-1];
@@ -180,12 +243,12 @@ public class SPLSolver {
     public void gaussJordan() {
         this.mat.gaussJordan();
         boolean hasSolution = false;
-        int j = 0;
-        while (!hasSolution && j < this.mat.N-1) {
-            if (this.mat.Mat[this.mat.M-1][j] != 0) {
+        int jsol = 0;
+        while (!hasSolution && jsol < this.mat.N-1) {
+            if (this.mat.Mat[this.mat.M-1][jsol] != 0) {
                 hasSolution = true;
             }
-            j++;
+            jsol++;
         }
         if (!hasSolution) {
             if (this.mat.Mat[this.mat.M-1][this.mat.N-1] == 0) {
@@ -195,7 +258,7 @@ public class SPLSolver {
 
         if (hasSolution) {
             if (this.mat.rowZero(this.mat.M-1) || this.mat.N-1 > this.mat.M) {
-                System.out.println("SPL memiliki banyak solusi");
+                printParametrik();
             }
             else {
                 this.solutions = new double[this.mat.N-1];
