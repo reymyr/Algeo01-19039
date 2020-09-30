@@ -61,11 +61,11 @@ public class Algeo {
                 choiceDet = Integer.parseInt(in.nextLine());  
                 switch (choiceDet){
                     case 1:
-                        detSolver.solveCofactor();
+                        detSolver.solveRowRed();
                         break;
 
                     case 2:
-                        detSolver.solveRowRed();
+                        detSolver.solveCofactor();
                         break;
 
                     default:

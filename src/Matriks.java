@@ -304,7 +304,7 @@ public class Matriks {
                                     temp = Mat[i][p];
                                     Mat[i][p] = Mat[barisSwap][p];
                                     Mat[barisSwap][p] = temp;
-                                    if (p != M-1) {
+                                    if (i != M-1) {
                                         jumlahSwap = jumlahSwap + 1;
                                     }
                                 }

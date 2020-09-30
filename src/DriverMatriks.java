@@ -50,9 +50,10 @@ public class DriverMatriks {
 
         //Cramer.solve(mat);
         
-        Matriks cfc = mat.getCofactorMatriks();
-        cfc.printMatriks();
-        System.out.println();
+        //Matriks rowred = mat.();
+        //cfc.printMatriks();
+        //System.out.println();
+        System.out.println("determinan rowred : " + mat.detRowReduction());
 
 
         // Cramer.solve(mat);
