@@ -17,14 +17,14 @@ public class Interpolasi {
             int n;
             System.out.print("n: ");
             n = in.nextInt();
-            double[][] A = new double[n][2];
-            for(int k = 0; k < n; k++) {
+            double[][] A = new double[n+1][2];
+            for(int k = 0; k < n+1; k++) {
                 System.out.print("x"+k+": ");
                 A[k][0] = in.nextDouble();
                 System.out.print("y"+k+": ");
                 A[k][1] = in.nextDouble();
             }
-            mat = new Matriks(n, n+1);
+            this.mat = new Matriks(n+1, n+2);
             for (int i = 0; i < mat.M ;i++) {
                 for (int j = 0; j < mat.N; j++) {
                     if (j != mat.N-1) {
@@ -37,6 +37,7 @@ public class Interpolasi {
             }
             System.out.print("Nilai x yang akan ditaksir: ");
             this.x = in.nextDouble();
+            System.out.println();
         }
         else if (choiceInput == 2) {
             System.out.print("Nama file: ");
