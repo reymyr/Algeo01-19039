@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.io.File;
 
 public class Algeo {
     public static void main(String[] args) {
