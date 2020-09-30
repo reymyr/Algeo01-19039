@@ -24,7 +24,7 @@ public class DriverMatriks {
                     else {
                         System.out.print("Konstanta b"+(i+1)+": ");
                     }
-                    A[i][j] = in.nextDouble();
+                    A[i][j] = Double.parseDouble(in.nextLine());
                 }
             }
             mat = new Matriks(A);
@@ -40,8 +40,7 @@ public class DriverMatriks {
         }
         
         mat.printMatriks();
-        Matriks mat2 = mat.clone();
-        Matriks mat3 = mat.clone();
+    
         System.out.println(mat.M);
         System.out.println(mat.N);
 
@@ -55,12 +54,6 @@ public class DriverMatriks {
         cfc.printMatriks();
         System.out.println();
 
-        SPLSolver.gauss(mat);
-        System.out.println();
-        SPLSolver.gaussJordan(mat2);
-
-        System.out.println();
-        SPLSolver.inverse(mat3);
 
         // Cramer.solve(mat);
         

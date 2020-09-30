@@ -42,12 +42,13 @@ public class Matriks {
             this.M = rows;
             this.N = cols;
             this.Mat = new double[rows][cols];
-            Scanner in = new Scanner(f);
+            Scanner fileScanner = new Scanner(f);
             for(i = 0; i < rows; i++) {
                 for (j = 0; j < cols; j++) {
-                    this.Mat[i][j] = in.nextDouble();
+                    this.Mat[i][j] = fileScanner.nextDouble();
                 }
             }
+            fileScanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
             e.printStackTrace();
@@ -67,7 +68,8 @@ public class Matriks {
         Scanner in = new Scanner(System.in);
         for(i = 0; i < M; i++) {
             for (j = 0; j < N; j++) {
-                this.Mat[i][j] = in.nextDouble();
+                System.out.print("Koefisien a"+(i+1)+(j+1)+": ");
+                this.Mat[i][j] = Double.parseDouble(in.nextLine());
             }
         }
     }
@@ -362,7 +364,7 @@ public class Matriks {
 
     // Mengembalikan inverse dari matriks dengan metode Gauss Jordan
     // Prekondisi: matriks persegi
-    public void inverseGaussJordan() {
+    public Matriks inverseGaussJordan() {
         Matriks inverseMat = new Matriks(this.M, this.N);
         Matriks temp = new Matriks(this.M, this.N*2);
         for (int i = 0; i < this.M; i++) {
@@ -374,25 +376,11 @@ public class Matriks {
             temp.Mat[i][i+this.N] = 1;
         }
         temp.gaussJordan();
-        int i = 0;
-        boolean adaDet = true;
-        while (adaDet && i < this.M) {
-            if (temp.Mat[i][i] == 0) {
-                adaDet = false;
+        for (int i2 = 0; i2 < this.M; i2++) {
+            for (int j2 = 0; j2 < this.N; j2++) {
+                inverseMat.Mat[i2][j2] = temp.Mat[i2][j2+this.N];
             }
-            i++;
         }
-
-        if (!adaDet) {
-            System.out.println("Matriks tidak memiliki invers");
-        }
-        else {
-            for (int i2 = 0; i2 < this.M; i2++) {
-                for (int j2 = 0; j2 < this.N; j2++) {
-                    inverseMat.Mat[i2][j2] = temp.Mat[i2][j2+this.N];
-                }
-            }
-            inverseMat.printMatriks();
-        }
+        return inverseMat;
     }
 }
