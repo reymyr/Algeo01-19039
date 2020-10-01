@@ -16,7 +16,7 @@ public class LinearRegression {
         Scanner in = new Scanner(System.in);
         System.out.println("1. Input dari keyboard");
         System.out.println("2. Input dari file");
-        System.out.print("Choice (1/2): ");
+        System.out.print("Pilihan: ");
         choiceInput = Integer.parseInt(in.nextLine());
         if (choiceInput == 1){
             int n, col;

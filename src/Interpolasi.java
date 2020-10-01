@@ -136,6 +136,9 @@ public class Interpolasi {
                     double res = 0;
                     for (int i = 0; i < solutions.length; i++) {
                         res += solutions[i]*Math.pow(this.x, i);
+                        if (solutions[i] < 0 && i == 0) {
+                            writer.write("-");
+                        }
                         writer.write(String.format("%.4f", Math.abs(solutions[i])));
                         if (i > 0) {
                             writer.write("x");
@@ -170,6 +173,9 @@ public class Interpolasi {
             double res = 0;
             for (int i = 0; i < solutions.length; i++) {
                 res += solutions[i]*Math.pow(this.x, i);
+                if (solutions[i] < 0 && i == 0) {
+                    System.out.print("-");
+                }
                 System.out.print(String.format("%.4f", Math.abs(solutions[i])));
                 if (i > 0) {
                     System.out.print("x");
