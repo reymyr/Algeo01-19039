@@ -129,12 +129,18 @@ public class SPLSolver {
         String sols[] = new String[this.mat.N-1];
         Arrays.fill(sols, "");
         int k = 0;
-        for (int i = 0; i < this.mat.M; i++) {
-            for (int j = 0; j < this.mat.N-1; j++) {
-                if (j != this.mat.leadingCoef(i) && sols[j] == "" && this.mat.Mat[i][j] != 0) {
-                    sols[j] = variables[k];
-                    k++;
+        boolean leadCoef[] = new boolean[this.mat.N-1];
+        for (int j = 0; j < this.mat.N-1; j++) {
+            boolean lead = false;
+            for (int i = 0; i < this.mat.M; i++) {
+                if (j == this.mat.leadingCoef(i)) {
+                    lead = true;
+                    break;
                 }
+            }
+            if (!lead) {
+                sols[j] = variables[k];
+                k++;
             }
         }
         for (int i = 0; i < this.mat.M; i++) {
@@ -146,8 +152,11 @@ public class SPLSolver {
                 for (int j = this.mat.leadingCoef(i)+1; j < this.mat.N-1; j++) {
                     if (this.mat.Mat[i][j] != 0) {
                         String s = Double.toString(-1*this.mat.Mat[i][j]);
+                        if (Math.abs(this.mat.Mat[i][j]) == 1) {
+                            s = this.mat.Mat[i][j] == 1 ? "-" : "";
+                        }
                         if (this.mat.Mat[i][j] <= 0 && sols[this.mat.leadingCoef(i)] != "") {
-                            s = " + "+s;
+                            s = " + "+ s;
                         }
                         else if (this.mat.Mat[i][j] > 0 && sols[this.mat.leadingCoef(i)] != "") {
                             s = " - " + Double.toString(this.mat.Mat[i][j]) ;
@@ -242,7 +251,7 @@ public class SPLSolver {
             for (int j = 0; j < this.mat.N-1; j++) {
                 boolean jLead = false;
                 int i = 0;
-                while (!jLead && i < this.mat.N) {
+                while (!jLead && i < this.mat.M) {
                     if (this.mat.leadingCoef(i) == j) {
                         jLead = true;
                     }
@@ -296,7 +305,7 @@ public class SPLSolver {
             for (int j = 0; j < this.mat.N-1; j++) {
                 boolean jLead = false;
                 int i = 0;
-                while (!jLead && i < this.mat.N) {
+                while (!jLead && i < this.mat.M) {
                     if (this.mat.leadingCoef(i) == j) {
                         jLead = true;
                     }
