@@ -159,7 +159,7 @@ public class SPLSolver {
                             s = " + "+ s;
                         }
                         else if (this.mat.Mat[i][j] > 0 && sols[this.mat.leadingCoef(i)] != "") {
-                            s = " - " + Double.toString(this.mat.Mat[i][j]) ;
+                            s = " - " + Double.toString(this.mat.Mat[i][j]);
                         }
                         sols[this.mat.leadingCoef(i)] += s + sols[j];
                     }
@@ -232,18 +232,23 @@ public class SPLSolver {
 
     public void gauss() {
         this.mat.gauss();
-        boolean hasSolution = false;
+        boolean hasSolution = true;
         int k = 0;
-        while (!hasSolution && k < this.mat.N-1) {
-            if (this.mat.Mat[this.mat.M-1][k] != 0) {
-                hasSolution = true;
+        Matriks left = new Matriks(this.mat.M, this.mat.N-1);
+        double[] right = new double[this.mat.M];
+        for (int i = 0; i < left.M; i++) {
+            for (int j = 0; j < left.N; j++) {
+                left.Mat[i][j] = this.mat.Mat[i][j];
+            }
+        }
+        for (int i = 0; i < this.mat.M; i++) {
+            right[i] = this.mat.Mat[i][this.mat.N-1];
+        }
+        while (hasSolution && k < this.mat.M) {
+            if (left.rowZero(k) && right[k] != 0) {
+                hasSolution = false;
             }
             k++;
-        }
-        if (!hasSolution) {
-            if (this.mat.Mat[this.mat.M-1][this.mat.N-1] == 0) {
-                hasSolution = true;
-            }
         }
 
         if (hasSolution) {
@@ -286,18 +291,23 @@ public class SPLSolver {
 
     public void gaussJordan() {
         this.mat.gaussJordan();
-        boolean hasSolution = false;
-        int jsol = 0;
-        while (!hasSolution && jsol < this.mat.N-1) {
-            if (this.mat.Mat[this.mat.M-1][jsol] != 0) {
-                hasSolution = true;
+        boolean hasSolution = true;
+        int k = 0;
+        Matriks left = new Matriks(this.mat.M, this.mat.N-1);
+        double[] right = new double[this.mat.M];
+        for (int i = 0; i < left.M; i++) {
+            for (int j = 0; j < left.N; j++) {
+                left.Mat[i][j] = this.mat.Mat[i][j];
             }
-            jsol++;
         }
-        if (!hasSolution) {
-            if (this.mat.Mat[this.mat.M-1][this.mat.N-1] == 0) {
-                hasSolution = true;
+        for (int i = 0; i < this.mat.M; i++) {
+            right[i] = this.mat.Mat[i][this.mat.N-1];
+        }
+        while (hasSolution && k < this.mat.M) {
+            if (left.rowZero(k) && right[k] != 0) {
+                hasSolution = false;
             }
+            k++;
         }
 
         if (hasSolution) {

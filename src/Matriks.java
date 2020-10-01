@@ -174,7 +174,6 @@ public class Matriks {
                 } 
             }
         }
-
     }
 
     // gauss-jordan, matriks dijadikan eselon baris tereduksi
