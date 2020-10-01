@@ -235,7 +235,7 @@ public class Matriks {
                     }
                     
                 }
-                cofactorMat.Mat[i][j] = Math.pow(-1, i+j)*temp.detCofactor();
+                cofactorMat.Mat[i][j] = Math.pow(-1, i+j)*temp.detRowReduction();
             }
         }
         return cofactorMat;

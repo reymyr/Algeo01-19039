@@ -348,7 +348,7 @@ public class SPLSolver {
                 b[i] = this.mat.Mat[i][this.mat.N-1];
             }
             this.solutions = new double[this.mat.M]; // hasil perkalian A inverse dengan b
-            Matriks AInverse = A.inverseCofactor();
+            Matriks AInverse = A.inverseGaussJordan();
 
             for (i = 0; i < this.solutions.length; i++){
                 this.solutions[i] = 0;
