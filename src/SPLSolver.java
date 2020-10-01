@@ -57,6 +57,10 @@ public class SPLSolver {
             System.exit(0);
         }
         
+    }
+
+    private void printSols() {
+        Scanner in = new Scanner(System.in);
         System.out.println();
         System.out.println("1. Output ke layar");
         System.out.println("2. Output ke file"); 
@@ -74,9 +78,6 @@ public class SPLSolver {
                 System.out.println("Input tidak valid");
                 System.exit(0);
         }
-    }
-
-    private void printSols() {
         if (this.toFile) {
             JFrame frame = new JFrame();
             JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
@@ -106,6 +107,24 @@ public class SPLSolver {
     }
 
     private void printParametrik() {
+        Scanner in = new Scanner(System.in);
+        System.out.println();
+        System.out.println("1. Output ke layar");
+        System.out.println("2. Output ke file"); 
+        System.out.print("Pilihan: ");
+        int choiceOutput;
+        choiceOutput = Integer.parseInt(in.nextLine());
+        switch (choiceOutput) {
+            case 1:
+                this.toFile = false;
+                break;
+            case 2:
+                this.toFile = true;
+                break;
+            default:
+                System.out.println("Input tidak valid");
+                System.exit(0);
+        }
         String[] variables = {"r", "s", "t", "u", "v", "w"};
         String sols[] = new String[this.mat.N-1];
         Arrays.fill(sols, "");
@@ -219,7 +238,23 @@ public class SPLSolver {
         }
 
         if (hasSolution) {
-            if (this.mat.rowZero(this.mat.M-1) || this.mat.N-1 > this.mat.M) {
+            boolean parametric = false;
+            for (int j = 0; j < this.mat.N-1; j++) {
+                boolean jLead = false;
+                int i = 0;
+                while (!jLead && i < this.mat.N) {
+                    if (this.mat.leadingCoef(i) == j) {
+                        jLead = true;
+                    }
+                    i++;
+                }
+                if (!jLead) {
+                    parametric = true;
+                    break;
+                }
+            }
+
+            if (parametric) {
                 this.mat.gaussJordan();
                 printParametrik();
             }
@@ -257,7 +292,23 @@ public class SPLSolver {
         }
 
         if (hasSolution) {
-            if (this.mat.rowZero(this.mat.M-1) || this.mat.N-1 > this.mat.M) {
+            boolean parametric = false;
+            for (int j = 0; j < this.mat.N-1; j++) {
+                boolean jLead = false;
+                int i = 0;
+                while (!jLead && i < this.mat.N) {
+                    if (this.mat.leadingCoef(i) == j) {
+                        jLead = true;
+                    }
+                    i++;
+                }
+                if (!jLead) {
+                    parametric = true;
+                    break;
+                }
+            }
+
+            if (parametric) {
                 printParametrik();
             }
             else {
@@ -301,7 +352,7 @@ public class SPLSolver {
             printSols();
         }
         else{
-            System.out.println("Banyak peubah dan persamaan SPL berbeda, solusi tidak dapat dicari dengan metode inverse");
+            System.out.println("Banyak peubah dan banyak persamaan SPL berbeda, solusi tidak dapat dicari dengan metode inverse");
         }
     }  
 }
