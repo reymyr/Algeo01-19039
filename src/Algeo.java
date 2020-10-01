@@ -105,11 +105,13 @@ public class Algeo {
                 break;
 
             case 5:
-            
+                System.out.println();
+                LinearRegression LR = new LinearRegression();
+                LR.LRSolve();
                 break;
 
             case 6:
-            
+                System.out.println("Thank you and goodbye! Ciao");
                 break;
 
             default:
