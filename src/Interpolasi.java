@@ -135,23 +135,26 @@ public class Interpolasi {
                     writer.write("Persamaan polinom:\n");
                     double res = 0;
                     for (int i = 0; i < solutions.length; i++) {
+                        if (Math.abs(solutions[i]) < 1e-9){
+                            continue;
+                        }
                         res += solutions[i]*Math.pow(this.x, i);
                         if (solutions[i] < 0 && i == 0) {
                             writer.write("-");
+                        }
+                        else if (i > 0) {
+                            if (solutions[i] >= 0) {
+                                writer.write(" + ");
+                            }
+                            else {
+                                writer.write(" - ");
+                            }
                         }
                         writer.write(String.format("%.4f", Math.abs(solutions[i])));
                         if (i > 0) {
                             writer.write("x");
                             if (i > 1) {
                                 writer.write("^"+i);
-                            }
-                        }
-                        if (i < solutions.length-1) {
-                            if (solutions[i+1] >= 0) {
-                                writer.write(" + ");
-                            }
-                            else {
-                                writer.write(" - ");
                             }
                         }
                     }
@@ -172,23 +175,26 @@ public class Interpolasi {
             System.out.println("Persamaan polinom:");
             double res = 0;
             for (int i = 0; i < solutions.length; i++) {
+                if (Math.abs(solutions[i]) < 1e-9){
+                    continue;
+                }
                 res += solutions[i]*Math.pow(this.x, i);
                 if (solutions[i] < 0 && i == 0) {
                     System.out.print("-");
+                }
+                else if (i > 0) {
+                    if (solutions[i] >= 0) {
+                        System.out.print(" + ");
+                    }
+                    else {
+                        System.out.print(" - ");
+                    }
                 }
                 System.out.print(String.format("%.4f", Math.abs(solutions[i])));
                 if (i > 0) {
                     System.out.print("x");
                     if (i > 1) {
                         System.out.print("^"+i);
-                    }
-                }
-                if (i < solutions.length-1) {
-                    if (solutions[i+1] >= 0) {
-                        System.out.print(" + ");
-                    }
-                    else {
-                        System.out.print(" - ");
                     }
                 }
             }
